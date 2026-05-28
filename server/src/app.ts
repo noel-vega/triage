@@ -1,12 +1,14 @@
 import express from 'express'
+import cors from 'cors'
 import { zodBadRequest } from './middlewares.js';
-import { authRouter } from './modules/auth/auth.routes.js';
+import { pollsRouter } from './modules/polls/polls.routes.js';
 export const app = express();
 const port = 3000;
 
+app.use(cors());
 app.use(express.json())
 
-app.use("/auth", authRouter)
+app.use("/polls", pollsRouter)
 
 app.use(zodBadRequest)
 
