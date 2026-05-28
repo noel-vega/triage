@@ -1,0 +1,12 @@
+// tsconfig.build.json  — emits app to dist, only sees src
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "rootDir": "./src",
+    "outDir": "./dist"
+  },
+  "include": [
+    "src"
+  ]
+}
