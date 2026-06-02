@@ -8,7 +8,7 @@ import { GripVerticalIcon, MoveLeftIcon, PlusIcon, XIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useCreatePollMutation } from '@/features/polls/polls.hooks'
 
-export const Route = createFileRoute('/polls/create')({
+export const Route = createFileRoute('/admin/polls/create')({
   component: RouteComponent,
 })
 
@@ -38,7 +38,7 @@ function RouteComponent() {
 
   return (
     <div className="max-w-4xl mx-auto w-full">
-      <Link to="/polls" className="flex gap-2 mb-2">
+      <Link to="/admin/polls" className="flex gap-2 mb-2">
         <MoveLeftIcon />
         Polls
       </Link>

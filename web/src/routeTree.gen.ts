@@ -9,72 +9,77 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as PollsIndexRouteImport } from './routes/polls/index'
-import { Route as PollsCreateRouteImport } from './routes/polls/create'
 import { Route as PollsIdRouteImport } from './routes/polls/$id'
+import { Route as AdminPollsIndexRouteImport } from './routes/admin/polls/index'
+import { Route as AdminPollsCreateRouteImport } from './routes/admin/polls/create'
+import { Route as AdminPollsIdRouteImport } from './routes/admin/polls/$id'
 
-const PollsIndexRoute = PollsIndexRouteImport.update({
-  id: '/polls/',
-  path: '/polls/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PollsCreateRoute = PollsCreateRouteImport.update({
-  id: '/polls/create',
-  path: '/polls/create',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PollsIdRoute = PollsIdRouteImport.update({
   id: '/polls/$id',
   path: '/polls/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPollsIndexRoute = AdminPollsIndexRouteImport.update({
+  id: '/admin/polls/',
+  path: '/admin/polls/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPollsCreateRoute = AdminPollsCreateRouteImport.update({
+  id: '/admin/polls/create',
+  path: '/admin/polls/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPollsIdRoute = AdminPollsIdRouteImport.update({
+  id: '/admin/polls/$id',
+  path: '/admin/polls/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/polls/$id': typeof PollsIdRoute
-  '/polls/create': typeof PollsCreateRoute
-  '/polls/': typeof PollsIndexRoute
+  '/admin/polls/$id': typeof AdminPollsIdRoute
+  '/admin/polls/create': typeof AdminPollsCreateRoute
+  '/admin/polls/': typeof AdminPollsIndexRoute
 }
 export interface FileRoutesByTo {
   '/polls/$id': typeof PollsIdRoute
-  '/polls/create': typeof PollsCreateRoute
-  '/polls': typeof PollsIndexRoute
+  '/admin/polls/$id': typeof AdminPollsIdRoute
+  '/admin/polls/create': typeof AdminPollsCreateRoute
+  '/admin/polls': typeof AdminPollsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/polls/$id': typeof PollsIdRoute
-  '/polls/create': typeof PollsCreateRoute
-  '/polls/': typeof PollsIndexRoute
+  '/admin/polls/$id': typeof AdminPollsIdRoute
+  '/admin/polls/create': typeof AdminPollsCreateRoute
+  '/admin/polls/': typeof AdminPollsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/polls/$id' | '/polls/create' | '/polls/'
+  fullPaths:
+    | '/polls/$id'
+    | '/admin/polls/$id'
+    | '/admin/polls/create'
+    | '/admin/polls/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/polls/$id' | '/polls/create' | '/polls'
-  id: '__root__' | '/polls/$id' | '/polls/create' | '/polls/'
+  to: '/polls/$id' | '/admin/polls/$id' | '/admin/polls/create' | '/admin/polls'
+  id:
+    | '__root__'
+    | '/polls/$id'
+    | '/admin/polls/$id'
+    | '/admin/polls/create'
+    | '/admin/polls/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   PollsIdRoute: typeof PollsIdRoute
-  PollsCreateRoute: typeof PollsCreateRoute
-  PollsIndexRoute: typeof PollsIndexRoute
+  AdminPollsIdRoute: typeof AdminPollsIdRoute
+  AdminPollsCreateRoute: typeof AdminPollsCreateRoute
+  AdminPollsIndexRoute: typeof AdminPollsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/polls/': {
-      id: '/polls/'
-      path: '/polls'
-      fullPath: '/polls/'
-      preLoaderRoute: typeof PollsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/polls/create': {
-      id: '/polls/create'
-      path: '/polls/create'
-      fullPath: '/polls/create'
-      preLoaderRoute: typeof PollsCreateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/polls/$id': {
       id: '/polls/$id'
       path: '/polls/$id'
@@ -82,13 +87,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PollsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/polls/': {
+      id: '/admin/polls/'
+      path: '/admin/polls'
+      fullPath: '/admin/polls/'
+      preLoaderRoute: typeof AdminPollsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/polls/create': {
+      id: '/admin/polls/create'
+      path: '/admin/polls/create'
+      fullPath: '/admin/polls/create'
+      preLoaderRoute: typeof AdminPollsCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/polls/$id': {
+      id: '/admin/polls/$id'
+      path: '/admin/polls/$id'
+      fullPath: '/admin/polls/$id'
+      preLoaderRoute: typeof AdminPollsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   PollsIdRoute: PollsIdRoute,
-  PollsCreateRoute: PollsCreateRoute,
-  PollsIndexRoute: PollsIndexRoute,
+  AdminPollsIdRoute: AdminPollsIdRoute,
+  AdminPollsCreateRoute: AdminPollsCreateRoute,
+  AdminPollsIndexRoute: AdminPollsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

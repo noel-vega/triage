@@ -7,7 +7,7 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { PlusIcon, SearchIcon } from 'lucide-react'
 import { Suspense, useDeferredValue, useState } from 'react'
 
-export const Route = createFileRoute('/polls/')({
+export const Route = createFileRoute('/admin/polls/')({
   beforeLoad: async () => {
     await queryClient.ensureQueryData(getUseListPollsQueryOptions())
   },

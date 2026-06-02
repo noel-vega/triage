@@ -1,6 +1,6 @@
 import { buildQuery } from "@/utils"
 import z from "zod"
-import { PollWithChoicesSchema } from "./polls.types"
+import { PollSchema } from "./polls.types"
 
 const CreatePollSchema = z.object({
   question: z.string(),
@@ -33,6 +33,16 @@ export async function fetchListPolls({ params }: { params?: { search?: string } 
 export async function fetchGetPoll({ id }: { id: number }) {
   const response = await fetch(`http://localhost:3000/polls/${id}`)
   const data = await response.json()
-  return PollWithChoicesSchema.parse(data)
+  return PollSchema.parse(data)
+}
+
+export async function fetchSubmitVote({ pollId, choiceId }: { pollId: number, choiceId: number }) {
+  const response = await fetch(`http://localhost:3000/polls/${pollId}`, {
+    method: "POST",
+    body: JSON.stringify({ choiceId }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
 }
 
