@@ -6,7 +6,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { GripVerticalIcon, MoveLeftIcon, PlusIcon, XIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useCreatePollMutation } from '@/features/polls/polls.hooks'
+import { useCreatePollMutation } from '@/features/admin/admin.hooks'
 
 export const Route = createFileRoute('/admin/polls/create')({
   component: RouteComponent,

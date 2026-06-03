@@ -1,4 +1,4 @@
-import type { PollStatus } from "@/features/polls/polls.types";
+import type { PollStatus } from "@/features/shared/types";
 import { Badge } from "./ui/badge";
 import { cn } from "@/lib/utils";
 

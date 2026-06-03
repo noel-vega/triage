@@ -1,11 +1,10 @@
 import { Button } from '@/components/ui/button'
-import { FieldLabel } from '@/components/ui/field'
 import { Item, ItemContent, ItemMedia } from '@/components/ui/item'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { getUsePollQueryOptions, usePollSuspenseQuery } from '@/features/polls/polls.hooks'
+import { getUsePollQueryOptions, useCastVoteMutation, usePollStream, usePollSuspenseQuery } from '@/features/poll/poll.hooks'
 import { queryClient } from '@/lib'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { Controller, useForm } from 'react-hook-form'
 import z from 'zod'
 
@@ -20,21 +19,23 @@ export const Route = createFileRoute('/polls/$id')({
 })
 
 const VoteSchema = z.object({
-  choiceId: z.number()
+  pollId: z.number(),
+  choiceId: z.coerce.number()
 })
 
 function RouteComponent() {
   const { id } = Route.useParams()
   const poll = usePollSuspenseQuery({ id })
+  const castVote = useCastVoteMutation()
+  usePollStream(poll.data.id)
 
   const form = useForm({
     resolver: zodResolver(VoteSchema),
-    defaultValues: { choiceId: undefined }
+    defaultValues: { pollId: id, choiceId: undefined }
   })
 
   const handleSubmit = (data: z.infer<typeof VoteSchema>) => {
-    console.log(data)
-
+    castVote.mutate(data)
   }
 
   return (

@@ -15,7 +15,12 @@ export type PollListItem = z.infer<typeof PollListItemSchema>
 
 
 
-export const PollChoice = z.object({ id: z.number(), label: z.string(), votes: z.number(), pct: z.number() })
+export const PollChoice = z.object({
+  id: z.number(),
+  label: z.string(),
+  votes: z.number(),
+  pct: z.number()
+})
 
 export const PollSchema = z.object({
   id: z.number(),

@@ -23,7 +23,7 @@ export const choicesTable = pgTable("choices", {
 export const votesTable = pgTable("votes", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   pollId: integer("poll_id").references(() => pollsTable.id), //reference poll
-  choicesId: integer("choice_id").references(() => choicesTable.id), //reference choice
+  choiceId: integer("choice_id").references(() => choicesTable.id), //reference choice
 });
 
 export const choicesRelations = relations(choicesTable, ({ one }) => ({

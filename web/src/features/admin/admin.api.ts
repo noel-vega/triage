@@ -1,6 +1,6 @@
 import { buildQuery } from "@/utils"
 import z from "zod"
-import { PollSchema } from "@/features/shared/types"
+import { PollListItemSchema, PollSchema } from "@/features/shared/types"
 
 const CreatePollSchema = z.object({
   question: z.string(),
@@ -10,16 +10,13 @@ const CreatePollSchema = z.object({
 
 
 export async function fetchCreatePoll(input: z.infer<typeof CreatePollSchema>) {
-  const response = await fetch("http://localhost:3000/admin/polls", {
+  await fetch("http://localhost:3000/admin/polls", {
     method: "POST",
     body: JSON.stringify(input),
     headers: {
       "Content-Type": "application/json"
     }
   })
-  const data = await response.json()
-  console.log("created:", data)
-  return data
 }
 
 export async function fetchListPolls({ params }: { params?: { search?: string } }) {
@@ -27,7 +24,7 @@ export async function fetchListPolls({ params }: { params?: { search?: string } 
 
   const response = await fetch(`http://localhost:3000/admin/polls${q.size > 0 ? `?${q.toString()}` : ""}`)
   const data = await response.json()
-  return data
+  return PollListItemSchema.array().parse(data)
 }
 
 export async function fetchGetPoll({ id }: { id: number }) {
@@ -36,13 +33,4 @@ export async function fetchGetPoll({ id }: { id: number }) {
   return PollSchema.parse(data)
 }
 
-export async function fetchSubmitVote({ pollId, choiceId }: { pollId: number, choiceId: number }) {
-  await fetch(`http://localhost:3000/admin/polls/${pollId}`, {
-    method: "POST",
-    body: JSON.stringify({ choiceId }),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-}
 

@@ -1,8 +1,8 @@
 import type { ColumnDef } from "@tanstack/react-table"
 import { DataTable } from "./data-table"
 import { Link } from "@tanstack/react-router"
-import type { Poll } from "@/features/polls/polls.types"
 import { PollStatusBadge } from "./polls-status-badge"
+import type { Poll } from "@/features/shared/types"
 
 
 

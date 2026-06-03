@@ -1,7 +1,7 @@
 import { PollsTable } from '@/components/polls-table'
 import { Button } from '@/components/ui/button'
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group'
-import { getUseListPollsQueryOptions, useListPollsSuspenseQuery } from '@/features/polls/polls.hooks'
+import { getUseListPollsQueryOptions, useListPollsSuspenseQuery } from '@/features/admin/admin.hooks'
 import { queryClient } from '@/lib'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { PlusIcon, SearchIcon } from 'lucide-react'
@@ -43,7 +43,7 @@ function Polls() {
           <p>Manage and track every poll</p>
         </div>
 
-        <Link to="/polls/create">
+        <Link to="/admin/polls/create">
           <Button>
             <PlusIcon /> Create poll
           </Button>
@@ -51,7 +51,7 @@ function Polls() {
       </header>
 
       <div className="mb-6">
-        <InputGroup>
+        <InputGroup className="bg-card">
           <InputGroupInput placeholder="Search..." onInput={(e) => setSearch(e.currentTarget.value)} value={search} />
           <InputGroupAddon>
             <SearchIcon />
